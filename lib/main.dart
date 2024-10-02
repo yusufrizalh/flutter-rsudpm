@@ -88,12 +88,13 @@ class _FirstClassState extends State<FirstClass> {
     var myBackground = Color(int.parse("0xff${'cccccc'}"));
     var myTextStyle = const TextStyle(
       color: Colors.white,
-      fontSize: 24,
+      fontSize: 18,
       fontWeight: FontWeight.bold,
     );
 
     return Scaffold(
       drawer: Drawer(
+        width: MediaQuery.of(context).size.width * 0.8,
         backgroundColor: myBackground,
         child: ListView(
           padding: const EdgeInsets.all(0),
@@ -108,8 +109,9 @@ class _FirstClassState extends State<FirstClass> {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Column(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const CircleAvatar(
                     radius: 30,
@@ -117,12 +119,19 @@ class _FirstClassState extends State<FirstClass> {
                     backgroundImage: NetworkImage(
                         'https://i.ibb.co.com/PxkfQPX/github-avatar.png'),
                   ),
-                  const Padding(padding: EdgeInsets.only(top: 12)),
-                  Text('Yusuf Rizal', style: myTextStyle),
+                  const Padding(padding: EdgeInsets.only(right: 16)),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Yusuf Rizal', style: myTextStyle),
+                      Text('rizal@inixindo.co.id', style: myTextStyle),
+                    ],
+                  ),
                 ],
               ),
             ),
-            const Padding(padding: EdgeInsets.only(top: 8)),
+            const Padding(padding: EdgeInsets.only(right: 8)),
             //* Drawer Menu
             ListTile(
               leading: const Icon(Icons.home),
@@ -323,7 +332,7 @@ class _FirstClassState extends State<FirstClass> {
           );
           ScaffoldMessenger.of(context).showSnackBar(mySnackbar);
         },
-        child: const Icon(Icons.create),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
