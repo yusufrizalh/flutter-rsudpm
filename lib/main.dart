@@ -94,7 +94,7 @@ class _FirstClassState extends State<FirstClass> {
 
     return Scaffold(
       drawer: Drawer(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery.of(context).size.width * 0.95,
         backgroundColor: myBackground,
         child: ListView(
           padding: const EdgeInsets.all(0),
