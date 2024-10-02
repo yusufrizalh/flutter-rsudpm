@@ -11,7 +11,7 @@ class MessagesPage extends StatefulWidget {
 }
 
 class _MessagesPageState extends State<MessagesPage> {
-  var myColor = Color(int.parse("0xff${'006c75'}"));
+  var myColor = const Color.fromRGBO(136, 111, 255, 1);
 
   //* all tab menus
   static const List<Widget> widgetBottomNavigation = <Widget>[
@@ -36,7 +36,6 @@ class _MessagesPageState extends State<MessagesPage> {
       appBar: AppBar(
         title: const Text('Messages'),
         centerTitle: false,
-        backgroundColor: myColor,
       ),
       body: Center(
         child: Column(

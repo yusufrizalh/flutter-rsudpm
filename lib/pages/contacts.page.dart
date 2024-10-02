@@ -9,8 +9,6 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  var myColor = Color(int.parse("0xff${'006c75'}"));
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +31,6 @@ class _ContactsPageState extends State<ContactsPage> {
           ),
         ),
         centerTitle: false,
-        backgroundColor: myColor,
       ),
       body: Center(
         child: Column(

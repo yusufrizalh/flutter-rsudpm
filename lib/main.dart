@@ -22,6 +22,22 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+MaterialColor myCustomColor = MaterialColor(
+  const Color.fromRGBO(136, 111, 255, 1).value,
+  const <int, Color>{
+    50: Color.fromRGBO(136, 111, 255, 0.1),
+    100: Color.fromRGBO(136, 111, 255, 0.2),
+    200: Color.fromRGBO(136, 111, 255, 0.3),
+    300: Color.fromRGBO(136, 111, 255, 0.4),
+    400: Color.fromRGBO(136, 111, 255, 0.5),
+    500: Color.fromRGBO(136, 111, 255, 0.6),
+    600: Color.fromRGBO(136, 111, 255, 0.7),
+    700: Color.fromRGBO(136, 111, 255, 0.8),
+    800: Color.fromRGBO(136, 111, 255, 0.9),
+    900: Color.fromRGBO(136, 111, 255, 1),
+  },
+);
+
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
@@ -29,6 +45,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primarySwatch: myCustomColor,
         useMaterial3: false,
       ),
       title: 'Simple Flutter',
@@ -67,7 +84,7 @@ class _FirstClassState extends State<FirstClass> {
 
   @override
   Widget build(BuildContext context) {
-    var myColor = Color(int.parse("0xff${'8806ce'}"));
+    var myColor = Color(int.parse("0xff${'886fff'}"));
     var myBackground = Color(int.parse("0xff${'cccccc'}"));
     var myTextStyle = const TextStyle(
       color: Colors.white,
@@ -147,10 +164,6 @@ class _FirstClassState extends State<FirstClass> {
                 Navigator.of(context).pop();
               },
             ),
-            const Divider(
-              color: Colors.grey,
-              thickness: 1,
-            ),
             ListTile(
               leading: const Icon(Icons.delete),
               title: const Text('Trash'),
@@ -160,6 +173,35 @@ class _FirstClassState extends State<FirstClass> {
                 onChangeDrawerMenu(4);
                 Navigator.of(context).pop();
               },
+            ),
+            const Divider(
+              color: Colors.grey,
+              thickness: 1,
+            ),
+            ExpansionTile(
+              title: const Text('User Area'),
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.person_add),
+                  title: const Text('Register'),
+                  selected: selectedDrawerIndex == 5,
+                  onTap: () {
+                    // redirect to register page
+                    onChangeDrawerMenu(5);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.login),
+                  title: const Text('Login'),
+                  selected: selectedDrawerIndex == 6,
+                  onTap: () {
+                    // redirect to login page
+                    onChangeDrawerMenu(6);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
             ),
           ],
         ),
