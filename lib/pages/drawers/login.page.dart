@@ -49,10 +49,17 @@ class _LoginPageState extends State<LoginPage> {
 
           //* redirect to dashboard page
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DashboardPage(),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => DashboardPage(
+                userName: userName,
+                userEmail: userEmail,
+                userPhone: userPhone,
+                userAddress: userAddress,
+                userImage: userImage,
+              ),
+            ),
+          );
         } else {
           debugPrint('RESPONSE: ${respConvert["message"]}');
         }
