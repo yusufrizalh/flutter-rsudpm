@@ -4,6 +4,7 @@ import 'package:simple_flutter/pages/contacts.page.dart';
 import 'package:simple_flutter/pages/drawers/bookmarks.page.dart';
 import 'package:simple_flutter/pages/drawers/files.page.dart';
 import 'package:simple_flutter/pages/drawers/home.page.dart';
+import 'package:simple_flutter/pages/drawers/login.page.dart';
 import 'package:simple_flutter/pages/drawers/shared.page.dart';
 import 'package:simple_flutter/pages/drawers/trash.page.dart';
 import 'package:simple_flutter/pages/gallery.page.dart';
@@ -23,18 +24,18 @@ class MyApp extends StatefulWidget {
 }
 
 MaterialColor myCustomColor = MaterialColor(
-  const Color.fromRGBO(0,0,128, 1).value,
+  const Color.fromRGBO(0, 0, 128, 1).value,
   const <int, Color>{
-    50: Color.fromRGBO(0,0,128, 0.1),
-    100: Color.fromRGBO(0,0,128, 0.2),
-    200: Color.fromRGBO(0,0,128, 0.3),
-    300: Color.fromRGBO(0,0,128, 0.4),
-    400: Color.fromRGBO(0,0,128, 0.5),
-    500: Color.fromRGBO(0,0,128, 0.6),
-    600: Color.fromRGBO(0,0,128, 0.7),
-    700: Color.fromRGBO(0,0,128, 0.8),
-    800: Color.fromRGBO(0,0,128, 0.9),
-    900: Color.fromRGBO(0,0,128, 1),
+    50: Color.fromRGBO(0, 0, 128, 0.1),
+    100: Color.fromRGBO(0, 0, 128, 0.2),
+    200: Color.fromRGBO(0, 0, 128, 0.3),
+    300: Color.fromRGBO(0, 0, 128, 0.4),
+    400: Color.fromRGBO(0, 0, 128, 0.5),
+    500: Color.fromRGBO(0, 0, 128, 0.6),
+    600: Color.fromRGBO(0, 0, 128, 0.7),
+    700: Color.fromRGBO(0, 0, 128, 0.8),
+    800: Color.fromRGBO(0, 0, 128, 0.9),
+    900: Color.fromRGBO(0, 0, 128, 1),
   },
 );
 
@@ -69,6 +70,8 @@ class _FirstClassState extends State<FirstClass> {
     Expanded(child: SharedPage()),
     Expanded(child: BookmarksPage()),
     Expanded(child: TrashPage()),
+    Expanded(child: Text('Register')),
+    Expanded(child: LoginPage()),
   ];
 
   //* drawer menu first time opened
@@ -88,13 +91,13 @@ class _FirstClassState extends State<FirstClass> {
     var myBackground = Color(int.parse("0xff${'cccccc'}"));
     var myTextStyle = const TextStyle(
       color: Colors.white,
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
     );
 
     return Scaffold(
       drawer: Drawer(
-        width: MediaQuery.of(context).size.width * 0.95,
+        width: MediaQuery.of(context).size.width * 0.85,
         backgroundColor: myBackground,
         child: ListView(
           padding: const EdgeInsets.all(0),
@@ -195,7 +198,7 @@ class _FirstClassState extends State<FirstClass> {
                   title: const Text('Register'),
                   selected: selectedDrawerIndex == 5,
                   onTap: () {
-                    // redirect to register page
+                    // redirect to trash page
                     onChangeDrawerMenu(5);
                     Navigator.of(context).pop();
                   },
@@ -205,7 +208,7 @@ class _FirstClassState extends State<FirstClass> {
                   title: const Text('Login'),
                   selected: selectedDrawerIndex == 6,
                   onTap: () {
-                    // redirect to login page
+                    // redirect to trash page
                     onChangeDrawerMenu(6);
                     Navigator.of(context).pop();
                   },
