@@ -71,21 +71,29 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    var labelStyle = const TextStyle(
+        fontSize: 16, color: Colors.black, fontWeight: FontWeight.w700);
+    var labelStyleWhite = const TextStyle(
+        fontSize: 18, color: Colors.white, fontWeight: FontWeight.w700);
+
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             margin: const EdgeInsets.all(12),
             child: Column(
               children: [
-                const Text('User Email'),
+                Text('User Email', style: labelStyle),
                 const Padding(padding: EdgeInsets.only(bottom: 8)),
                 TextField(
                   controller: userEmailCtrl,
                   decoration: InputDecoration(
                     hintText: 'Enter email address',
                     border: InputBorder.none,
-                    fillColor: Colors.grey.shade200,
+                    fillColor: Colors.grey.shade300,
+                    filled: true,
                   ),
                 ),
               ],
@@ -95,14 +103,15 @@ class _LoginPageState extends State<LoginPage> {
             margin: const EdgeInsets.all(12),
             child: Column(
               children: [
-                const Text('User Password'),
+                Text('User Password', style: labelStyle),
                 const Padding(padding: EdgeInsets.only(bottom: 8)),
                 TextField(
                   controller: userPasswordCtrl,
                   decoration: InputDecoration(
                     hintText: 'Enter password',
                     border: InputBorder.none,
-                    fillColor: Colors.grey.shade200,
+                    fillColor: Colors.grey.shade300,
+                    filled: true,
                   ),
                 ),
               ],
@@ -116,13 +125,10 @@ class _LoginPageState extends State<LoginPage> {
               height: 50,
               width: MediaQuery.of(context).size.width / 3,
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: const Color.fromRGBO(0, 0, 128, 1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
-                'Login',
-                style: TextStyle(color: Colors.white),
-              ),
+              child: Text('Login', style: labelStyleWhite),
             ),
           ),
         ],
