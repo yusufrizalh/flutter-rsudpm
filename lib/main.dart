@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_flutter/onboarding.dart';
 import 'package:simple_flutter/pages/contacts.page.dart';
-import 'package:simple_flutter/pages/dashboard/dashboard.page.dart';
 import 'package:simple_flutter/pages/drawers/bookmarks.page.dart';
 import 'package:simple_flutter/pages/drawers/files.page.dart';
 import 'package:simple_flutter/pages/drawers/home.page.dart';
@@ -51,7 +50,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: false,
       ),
       title: 'Simple Flutter',
-      home: const FirstClass(),
+      home: const OnBoarding(),
     );
   }
 }
