@@ -432,6 +432,16 @@ class _ProductListPageState extends State<ProductListPage> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'New Product',
+        elevation: 8,
+        mini: false,
+        splashColor: Colors.blue,
+        onPressed: () {
+          //* form create product
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
