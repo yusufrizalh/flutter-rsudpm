@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as converter;
 import './models/product_model.dart';
+import 'package:confirm_dialog/confirm_dialog.dart';
 
 class ProductListPage extends StatefulWidget {
   const ProductListPage({super.key});
@@ -95,100 +96,175 @@ class _ProductListPageState extends State<ProductListPage> {
                     height: 120,
                     width: MediaQuery.of(context).size.width * 0.85,
                     color: Colors.grey.shade300,
-                    child: Card(
-                      borderOnForeground: true,
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(
-                            color: Colors.grey.shade300,
-                            width: 1,
-                          )),
-                      margin: const EdgeInsets.all(4),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ListTile(
-                            tileColor: Colors.white,
-                            dense: false,
-                            leading: Image(
-                              image: NetworkImage(
-                                  productList[index]["image_path"]),
-                              fit: BoxFit.cover,
-                            ),
-                            title: Text(
-                              productList[index]["name"].toString(),
-                              style: const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            subtitle:
-                                Text(productList[index]["price"].toString()),
-                            onTap: () {
-                              debugPrint(
-                                  "PRODUCT NAME: ${productList[index]["name"]}");
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return ListView(
-                                    children: [
-                                      Wrap(
-                                        alignment: WrapAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.8,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.5,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                      bottom: 12),
-                                                  width: 100,
-                                                  height: 100,
-                                                  child: Image(
-                                                      image: NetworkImage(
-                                                          productList[index]
-                                                              ["image_path"]),
-                                                      fit: BoxFit.cover),
-                                                ),
-                                                Text(
-                                                  productList[index]["name"],
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                Text(productList[index]
-                                                    ["price"]),
-                                                Text(productList[index]
-                                                    ["createdAt"]),
-                                                Text(productList[index]
-                                                    ["description"]),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                    child: Dismissible(
+                      key: Key("index:${productList[index]["id"]}"),
+                      background: Container(
+                        color: Colors.red,
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 12),
+                                child: Icon(Icons.delete, color: Colors.white)),
+                            Text('Delete',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700)),
+                          ],
+                        ),
+                      ),
+                      secondaryBackground: Container(
+                        color: Colors.blue,
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text('Edit',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700)),
+                            Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 12),
+                                child: Icon(Icons.edit, color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                      onDismissed: (direction) async {
+                        Future deleteProduct(BuildContext context) async {
+                          const String apiUrlDelete =
+                              "http://192.168.99.139/flutter-api/products/deleteProduct.php";
+                          await http.post(
+                            Uri.parse(apiUrlDelete),
+                            body: {
+                              "id": productList[index]["id"],
                             },
-                          ),
-                        ],
+                          );
+                          setState(() {
+                            getAllProducts().then((data) {
+                              setState(() {
+                                productList = data;
+                              });
+                            });
+                          });
+                        }
+
+                        Future showConfirmDelete(BuildContext context) async {
+                          if (await confirm(
+                            context,
+                            title: const Text('Confirm Delete'),
+                            content: const Text(
+                                'Are you sure to delete this product?'),
+                            textOK: const Text('Yes'),
+                            textCancel: const Text('Cancel'),
+                          )) {
+                            return deleteProduct(context);
+                          } else {
+                            return debugPrint("Cancel to delete product");
+                          }
+                        }
+
+                        if (direction == DismissDirection.startToEnd) {
+                          //* show confirm delete using alert dialog
+                          return await showConfirmDelete(context);
+                        } else if (direction == DismissDirection.endToStart) {
+                          //*
+                        }
+                      },
+                      child: Card(
+                        borderOnForeground: true,
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                              color: Colors.grey.shade300,
+                              width: 1,
+                            )),
+                        margin: const EdgeInsets.all(4),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ListTile(
+                              tileColor: Colors.white,
+                              dense: false,
+                              leading: Image(
+                                image: NetworkImage(
+                                    productList[index]["image_path"]),
+                                fit: BoxFit.cover,
+                              ),
+                              title: Text(
+                                productList[index]["name"].toString(),
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              subtitle:
+                                  Text(productList[index]["price"].toString()),
+                              onTap: () {
+                                debugPrint(
+                                    "PRODUCT NAME: ${productList[index]["name"]}");
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return ListView(
+                                      children: [
+                                        Wrap(
+                                          alignment: WrapAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.5,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            bottom: 12),
+                                                    width: 100,
+                                                    height: 100,
+                                                    child: Image(
+                                                        image: NetworkImage(
+                                                            productList[index]
+                                                                ["image_path"]),
+                                                        fit: BoxFit.cover),
+                                                  ),
+                                                  Text(
+                                                    productList[index]["name"],
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                  Text(productList[index]
+                                                      ["price"]),
+                                                  Text(productList[index]
+                                                      ["createdAt"]),
+                                                  Text(productList[index]
+                                                      ["description"]),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
