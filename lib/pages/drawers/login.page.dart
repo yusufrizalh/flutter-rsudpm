@@ -78,17 +78,18 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const Padding(padding: EdgeInsets.only(top: 6)),
           Container(
-            margin: const EdgeInsets.all(12),
+            width: MediaQuery.of(context).size.width,
+            height: 100,
+            margin: const EdgeInsets.all(2),
             child: Column(
               children: [
                 Text('User Email', style: labelStyle),
                 const Padding(padding: EdgeInsets.only(bottom: 8)),
                 TextField(
-                  controller: userEmailCtrl,
+                  controller: userEmailCtrl..text = "rizal@email.com",
                   decoration: InputDecoration(
                     hintText: 'Enter email address',
                     border: InputBorder.none,
@@ -100,13 +101,15 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.all(12),
+            width: MediaQuery.of(context).size.width,
+            height: 100,
+            margin: const EdgeInsets.all(2),
             child: Column(
               children: [
                 Text('User Password', style: labelStyle),
                 const Padding(padding: EdgeInsets.only(bottom: 8)),
                 TextField(
-                  controller: userPasswordCtrl,
+                  controller: userPasswordCtrl..text = "Password",
                   decoration: InputDecoration(
                     hintText: 'Enter password',
                     border: InputBorder.none,
@@ -117,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-          const Padding(padding: EdgeInsets.only(top: 24)),
+          const Padding(padding: EdgeInsets.only(top: 4)),
           GestureDetector(
             onTap: loginCheck,
             child: Container(
