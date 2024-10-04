@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.2
+  quickalert: ^1.1.0
   shared_preferences: ^2.3.2
   smooth_page_indicator: ^1.2.0+3
 
