@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController userPasswordCtrl = TextEditingController();
 
   //* URL of REST API
-  final String apiUrl = "http://192.168.1.12/flutter-api/users/";
+  final String apiUrl = "http://192.168.99.139/flutter-api/users/";
 
   //* method for login check
   void loginCheck() async {

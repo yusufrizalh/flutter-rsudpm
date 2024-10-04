@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_flutter/main.dart';
+import 'package:simple_flutter/pages/dashboard/products/product_list.page.dart';
 
 class DashboardPage extends StatefulWidget {
   final String userName, userEmail, userPhone, userAddress, userImage;
@@ -61,13 +62,21 @@ class _DashboardPageState extends State<DashboardPage> {
           PopupMenuButton(
             onSelected: (menu) {
               switch (menu) {
+                case "Products":
+                  //* redirect to products page
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProductListPage(),
+                    ),
+                  );
+                  break;
                 case "Logout":
                   userLogout();
                   break;
               }
             },
             itemBuilder: (context) {
-              return {"Logout"}.map((String menu) {
+              return {"Products", "Logout"}.map((String menu) {
                 return PopupMenuItem(
                   value: menu,
                   child: Text(menu),
